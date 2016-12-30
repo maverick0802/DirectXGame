@@ -17,6 +17,9 @@ namespace ID{
 class CGameObject
 {
 protected:
+	D3DXMATRIX	m_World;
+	D3DXMATRIX	m_LocalWorld;
+	D3DXMATRIX	m_PrevLocalWorld;
 	int				m_ObjectNumber;
 	ID::OBJECT_ID	m_ObjID;
 	ID::SCENE_ID	m_SceneID;

@@ -8,9 +8,6 @@ class C3DObj :
 	public CGameObject
 {
 protected:
-	D3DXMATRIX	m_World;
-	D3DXMATRIX	m_LocalWorld;
-	D3DXMATRIX	m_PrevLocalWorld;
 	CMesh*		m_Meshdata;
 	D3DXVECTOR3 m_Move;
 	float		m_Radius;

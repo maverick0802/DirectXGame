@@ -98,7 +98,7 @@ void C3DObj::ResistChild(CGameObject* Child)
 void C3DObj::SendMatrixforChildren(D3DXMATRIX ParentWorld)
 {
 
-	m_World = m_LocalWorld * ParentWorld;
+	m_World = m_LocalWorld/* * ParentWorld*/;
 
 	auto Itr_S = m_ChildrenList.begin();
 	auto Itr_E = m_ChildrenList.end();

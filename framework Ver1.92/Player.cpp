@@ -67,14 +67,14 @@ void CPlayer::Update()
 	else
 		pos.y = 0.0f;
 	//Œš•¨‚Æ‚Ì”»’è
-	D3DXVECTOR3 tmp = pos;
-	tmp.y += 20.0f;
-	vCrossPoint = D3DXVECTOR3(0,0,0);
-	C3DObj* pHouse = CObjectMediator::Instance()->FindObject<CHouse>(0);
-	if(pHouse->Intersect(tmp, D3DXVECTOR3(tmp.x,tmp.y - 30,tmp.z), false, &vCrossPoint))
-		pos.y = vCrossPoint.y;
-	else
-		pos.y = pos.y;
+	//D3DXVECTOR3 tmp = pos;
+	//tmp.y += 20.0f;
+	//vCrossPoint = D3DXVECTOR3(0,0,0);
+	//C3DObj* pHouse = CObjectMediator::Instance()->FindObject<CHouse>(0);
+	//if(pHouse->Intersect(tmp, D3DXVECTOR3(tmp.x,tmp.y - 30,tmp.z), false, &vCrossPoint))
+	//	pos.y = vCrossPoint.y;
+	//else
+	//	pos.y = pos.y;
 
 	//ƒvƒŒƒCƒ„[‚ÌˆÚ“®
 	CCamera* pCamera = CObjectMediator::Instance()->FindObject<CCamera>(0);
@@ -132,6 +132,7 @@ void CPlayer::Update()
 		if (D3DXVec3Dot(&GetRight(), &CameraRight) < 0)
 			Angle *= -1;
 		D3DXMatrixRotationYawPitchRoll(&RotMat, Angle  * 0.2f, 0, 0);
+		D3DXVec3TransformCoord(&PlayerForword, &PlayerForword, &RotMat);
 		bMove = true;
 		//Move = pCamera->GetForward() * -SPEED_FORWORD;
 	}
@@ -156,34 +157,20 @@ void CPlayer::Update()
 
 	if (bMove)
 	{
+		D3DXVec3TransformCoord(&PlayerForword, &PlayerForword, &RotMat);
 		Move = PlayerForword * SPEED_FORWORD;
 		pos += Move;
 	}
 
-	//if (pField->Intersect(D3DXVECTOR3(pos.x, pos.y + 5, pos.z), D3DXVECTOR3(pos.x, pos.y + 5, pos.z) +  (PlayerForword * 10), false, &vCrossPoint))
-	//{
-	//	D3DXVECTOR3 vLength = D3DXVECTOR3(pos.x, pos.y + 5, pos.z) - vCrossPoint;
-	//	float fLength;
 
-	//	fLength = D3DXVec3Length(&vLength);
-	//	if (fLength < 10)
-	//		pos = GetPrevPos();
-
-	//}
+	D3DXMatrixMultiply(&world,&world,&RotMat);
+	world._41 = pos.x;
+	world._42 = pos.y;
+	world._43 = pos.z;
 
 
-	//if(pGoal->GetPos().x - 10 < GetPos().x && pGoal->GetPos().x + 10 > GetPos().x &&
-	//	pGoal->GetPos().z - 10 < GetPos().z && pGoal->GetPos().z + 10 > GetPos().z)
-	//{
-
-	//	C3DObj* tmp = CObjectMediator::Instance()->FindObject<CItem>(ID::SCENE_NULL,0);
-	//	if(tmp == NULL)
-	//		CSceneMediator::Instance()->SetNextScene(ID::SCENE_END);
-	//}
-	D3DXMatrixMultiply(&world, &world, &RotMat);
 
 	SetWorld(world);
-	SetPos(pos);
 	
 
 	printf("X = %f Y = %f Z = %f\n", pos.x, pos.y, pos.z);

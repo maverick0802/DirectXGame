@@ -19,11 +19,11 @@ void CTitleScene::Initialize()
 	CObjectFactory<CField>::Instance()->CreateObject();
 	CObjectFactory<CSky>::Instance()->CreateObject();
 	CObjectFactory<CItem>::Instance()->CreateObject();
-	CObjectFactory<CGoalLogo>::Instance()->CreateObject();
+	//CObjectFactory<CGoalLogo>::Instance()->CreateObject();
 
-	C3DObj* House= CObjectFactory<CHouse>::Instance()->CreateObject();
-	House->SetModelName("House.x");
-	House->SetPos(D3DXVECTOR3(0, 0, 0));
+	//C3DObj* House= CObjectFactory<CHouse>::Instance()->CreateObject();
+	//House->SetModelName("House.x");
+	//House->SetPos(D3DXVECTOR3(0, 0, 0));
 	//House = CObjectFactory<CHouse>::Instance()->CreateObject();
 	//House->SetModelName("House.x");
 	//House->SetPos(D3DXVECTOR3(-100, 1, -100));

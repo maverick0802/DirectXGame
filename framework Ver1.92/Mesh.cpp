@@ -70,7 +70,7 @@ void CMesh::Draw(D3DXMATRIX& world)
 		m_pAnimeCtr->AdvanceTime(deltaTime, NULL);
 
 	}
-	(*CDirectX3D::Create()->GetDevice())->SetTransform(D3DTS_WORLD, &world);
+	//(*CDirectX3D::Create()->GetDevice())->SetTransform(D3DTS_WORLD, &world);
 	if (m_FrameRoot)
 	{
 		UpdateFrameMatrices(m_FrameRoot, &world);
