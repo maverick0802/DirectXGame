@@ -83,6 +83,8 @@
   <ItemGroup>
     <ClCompile Include="BillBoard.cpp" />
     <ClCompile Include="C2DObj.cpp" />
+    <ClCompile Include="CollisionBase.cpp" />
+    <ClCompile Include="CollisionManeger.cpp" />
     <ClCompile Include="GoalLogo.cpp" />
     <ClCompile Include="House.cpp" />
     <ClCompile Include="plate.cpp" />
@@ -127,6 +129,8 @@
   <ItemGroup>
     <ClInclude Include="BillBoard.h" />
     <ClInclude Include="C2DObj.h" />
+    <ClInclude Include="CollisionBase.h" />
+    <ClInclude Include="CollisionManeger.h" />
     <ClInclude Include="GoalLogo.h" />
     <ClInclude Include="House.h" />
     <ClInclude Include="plate.h" />

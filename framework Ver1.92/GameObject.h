@@ -6,8 +6,12 @@ namespace ID{
 
 	typedef enum{
 
-		OBJECT_PLAYER = 100,
-		OBJECT_ENEMY
+		OBJECT_PLAYER =  1,
+		OBJECT_ENEMY  =  2,
+		OBJECT_HOUSE  =  4,
+		OBJECT_FIELD  =  8,
+		OBJECT_SKY    = 16,
+		OBJECT_OTHER  = 32
 
 	}OBJECT_ID;
 
@@ -21,11 +25,13 @@ protected:
 	D3DXMATRIX	m_LocalWorld;
 	D3DXMATRIX	m_PrevLocalWorld;
 	int				m_ObjectNumber;
+	int				m_AllObjectNumber;
 	ID::OBJECT_ID	m_ObjID;
 	ID::SCENE_ID	m_SceneID;
 	bool			m_Parent;	//êeÇ™Ç¢ÇÈÇ©	
 	std::list<CGameObject*>	m_ChildrenList;
 	bool			m_RemoveFlag;
+	
 public:
 	CGameObject(ID::SCENE_ID ID);
 	virtual ~CGameObject();
@@ -40,6 +46,7 @@ public:
 	void OnRemove();
 	bool GetRemove();
 	void SetObjectNumber(int Number);
+	void SetAllObjectNumber(int Number);
 	void OnParent();
 
 };
