@@ -67,18 +67,17 @@ void CPlayer::Update()
 	else
 		pos.y = 0.0f;
 	//Œš•¨‚Æ‚Ì”»’è
-	//D3DXVECTOR3 tmp = pos;
-	//tmp.y += 20.0f;
-	//vCrossPoint = D3DXVECTOR3(0,0,0);
-	//C3DObj* pHouse = CObjectMediator::Instance()->FindObject<CHouse>(0);
-	//if(pHouse->Intersect(tmp, D3DXVECTOR3(tmp.x,tmp.y - 30,tmp.z), false, &vCrossPoint))
-	//	pos.y = vCrossPoint.y;
-	//else
-	//	pos.y = pos.y;
+	D3DXVECTOR3 tmp = pos;
+	tmp.y += 20.0f;
+	vCrossPoint = D3DXVECTOR3(0,0,0);
+	C3DObj* pHouse = CObjectMediator::Instance()->FindObject<CHouse>(0);
+	if(pHouse->Intersect(tmp, D3DXVECTOR3(tmp.x,tmp.y - 30,tmp.z), false, &vCrossPoint))
+		pos.y = vCrossPoint.y;
+	else
+		pos.y = pos.y;
 
 	//ƒvƒŒƒCƒ„[‚ÌˆÚ“®
 	CCamera* pCamera = CObjectMediator::Instance()->FindObject<CCamera>(0);
-	C3DObj* pGoal = CObjectMediator::Instance()->FindObject<CGoalLogo>(0);
 
 	CameraForword = pCamera->GetForward();
 	CameraForword = D3DXVECTOR3(CameraForword.x, 0, CameraForword.z);
