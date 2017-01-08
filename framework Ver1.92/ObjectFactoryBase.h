@@ -4,7 +4,7 @@
 class CObjectFactoryBase
 {
 protected:
-
+	static int m_AllObject;
 	int m_ObjectNum;
 	ID::SCENE_ID  m_SceneID;
 	ID::OBJECT_ID m_ObjectID;

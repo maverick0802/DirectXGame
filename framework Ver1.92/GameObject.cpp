@@ -39,6 +39,13 @@ void CGameObject::SetObjectNumber(int Number)
 
 }
 
+void CGameObject::SetAllObjectNumber(int Number)
+{
+
+	m_AllObjectNumber = Number;
+
+}
+
 void CGameObject::OnParent()
 {
 

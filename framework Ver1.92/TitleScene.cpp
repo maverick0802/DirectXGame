@@ -31,6 +31,13 @@ void CTitleScene::Initialize()
 	//House->SetModelName("House3.x");
 	//House->SetPos(D3DXVECTOR3(200, 1, 200));
 	//CObjectFactory<CPlayer>::Instance()->CreateObject();
+	House = CObjectFactory<CHouse>::Instance()->CreateObject();
+	House->SetModelName("House.x");
+	House->SetPos(D3DXVECTOR3(-100, 1, -100));
+	House = CObjectFactory<CHouse>::Instance()->CreateObject();
+	House->SetModelName("House3.x");
+	House->SetPos(D3DXVECTOR3(200, 1, 200));
+	CObjectFactory<CPlayer>::Instance()->CreateObject();
 
 	CSceneBase::Initialize();
 
