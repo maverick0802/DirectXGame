@@ -13,6 +13,7 @@ C3DObj(ID::SCENE_NULL)
 	//D3DXMatrixIdentity(&m_World);
 	m_ObjID = ID::OBJECT_PLAYER;
 	m_Center = D3DXVECTOR3(0, 10, 0);
+	m_Box = D3DXVECTOR3(10, 20, 10);
 }
 
 CPlayer::CPlayer(ID::SCENE_ID SceneID):
@@ -75,6 +76,9 @@ void CPlayer::Update()
 		pos.y = vCrossPoint.y;
 	else
 		pos.y = pos.y;
+	
+	if (CollisionOBB(pHouse))
+		printf("Hit");
 
 	//ƒvƒŒƒCƒ„[‚ÌˆÚ“®
 	CCamera* pCamera = CObjectMediator::Instance()->FindObject<CCamera>(0);

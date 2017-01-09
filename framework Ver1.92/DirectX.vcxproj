@@ -85,8 +85,10 @@
     <ClCompile Include="C2DObj.cpp" />
     <ClCompile Include="CollisionBase.cpp" />
     <ClCompile Include="CollisionManeger.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GoalLogo.cpp" />
     <ClCompile Include="House.cpp" />
+    <ClCompile Include="OBB.cpp" />
     <ClCompile Include="plate.cpp" />
     <ClCompile Include="DXInput.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -97,7 +99,6 @@
     <ClCompile Include="DirectX3D.cpp" />
     <ClCompile Include="GameBase.cpp" />
     <ClCompile Include="GameMain.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="ObjectFactoryBase.cpp" />
@@ -131,8 +132,10 @@
     <ClInclude Include="C2DObj.h" />
     <ClInclude Include="CollisionBase.h" />
     <ClInclude Include="CollisionManeger.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GoalLogo.h" />
     <ClInclude Include="House.h" />
+    <ClInclude Include="OBB.h" />
     <ClInclude Include="plate.h" />
     <ClInclude Include="DXInput.h" />
     <ClInclude Include="Enemy.h" />
@@ -143,7 +146,6 @@
     <ClInclude Include="DirectX3D.h" />
     <ClInclude Include="GameBase.h" />
     <ClInclude Include="GameMain.h" />
-    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="ObjectFactory.h" />

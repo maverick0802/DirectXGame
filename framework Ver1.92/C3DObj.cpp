@@ -5,7 +5,8 @@ C3DObj::C3DObj(ID::SCENE_ID SceneID):
 CGameObject(SceneID),
 m_Radius(0.5f),
 m_Center(0,0,0),
-m_Meshdata(NULL)
+m_Meshdata(NULL),
+m_Box(0,0,0)
 {
 
 	D3DXMatrixIdentity(&m_World);
@@ -18,8 +19,8 @@ C3DObj::C3DObj():
 CGameObject(ID::SCENE_NULL),
 m_Radius(0.5f),
 m_Center(0, 0, 0),
-m_Meshdata(NULL)
-
+m_Meshdata(NULL),
+m_Box(0, 0, 0)
 {
 
 	D3DXMatrixIdentity(&m_World);
@@ -98,7 +99,7 @@ void C3DObj::ResistChild(CGameObject* Child)
 void C3DObj::SendMatrixforChildren(D3DXMATRIX ParentWorld)
 {
 
-	m_World = m_LocalWorld/* * ParentWorld*/;
+	m_World = m_LocalWorld * ParentWorld;
 
 	auto Itr_S = m_ChildrenList.begin();
 	auto Itr_E = m_ChildrenList.end();
@@ -112,80 +113,80 @@ void C3DObj::SendMatrixforChildren(D3DXMATRIX ParentWorld)
 
 }
 
-void C3DObj::SetPos(D3DXVECTOR3 pos)
-{
-
-	m_LocalWorld._41 = pos.x;
-	m_LocalWorld._42 = pos.y;
-	m_LocalWorld._43 = pos.z;
-
-}
-
-///////////////////////////////////////
-// 親空間におけるローカル座標の取得
-///////////////////////////////////////
-D3DXVECTOR3 C3DObj::GetPos()
-{
-
-	return D3DXVECTOR3(m_LocalWorld._41, m_LocalWorld._42, m_LocalWorld._43);
-
-}
-
-///////////////////////////////////////
-// ワールド座標の取得
-///////////////////////////////////////
-D3DXVECTOR3 C3DObj::GetWorldPos()
-{
-
-	return D3DXVECTOR3(m_World._41, m_World._42, m_World._43);
-
-}
-
-///////////////////////////////////////
-// ワールド行列の取得
-///////////////////////////////////////
-D3DXMATRIX  C3DObj::GetWorld()
-{
-	return m_LocalWorld;
-}
-
-///////////////////////////////////////
-// ワールド行列の設定
-///////////////////////////////////////
-void  C3DObj::SetWorld(D3DXMATRIX World)
-{
-	m_LocalWorld = World; 
-}
-
-///////////////////////////////////////
-// 前方ベクトルの取得
-///////////////////////////////////////
-D3DXVECTOR3 C3DObj::GetForward()
-{
-
-	return D3DXVECTOR3(m_LocalWorld._31, m_LocalWorld._32, m_LocalWorld._33);
-
-}
-
-///////////////////////////////////////
-// 右ベクトルの取得
-///////////////////////////////////////
-D3DXVECTOR3 C3DObj::GetRight()
-{
-
-	return D3DXVECTOR3(m_LocalWorld._11, m_LocalWorld._12, m_LocalWorld._13);
-
-}
-
-///////////////////////////////////////
-// 上方ベクトルの取得
-///////////////////////////////////////
-D3DXVECTOR3 C3DObj::GetUp()
-{
-
-	return D3DXVECTOR3(m_LocalWorld._21, m_LocalWorld._22, m_LocalWorld._23);
-
-}
+//void C3DObj::SetPos(D3DXVECTOR3 pos)
+//{
+//
+//	m_LocalWorld._41 = pos.x;
+//	m_LocalWorld._42 = pos.y;
+//	m_LocalWorld._43 = pos.z;
+//
+//}
+//
+/////////////////////////////////////////
+//// 親空間におけるローカル座標の取得
+/////////////////////////////////////////
+//D3DXVECTOR3 C3DObj::GetPos()
+//{
+//
+//	return D3DXVECTOR3(m_LocalWorld._41, m_LocalWorld._42, m_LocalWorld._43);
+//
+//}
+//
+/////////////////////////////////////////
+//// ワールド座標の取得
+/////////////////////////////////////////
+//D3DXVECTOR3 C3DObj::GetWorldPos()
+//{
+//
+//	return D3DXVECTOR3(m_World._41, m_World._42, m_World._43);
+//
+//}
+//
+/////////////////////////////////////////
+//// ワールド行列の取得
+/////////////////////////////////////////
+//D3DXMATRIX  C3DObj::GetWorld()
+//{
+//	return m_LocalWorld;
+//}
+//
+/////////////////////////////////////////
+//// ワールド行列の設定
+/////////////////////////////////////////
+//void  C3DObj::SetWorld(D3DXMATRIX World)
+//{
+//	m_LocalWorld = World; 
+//}
+//
+/////////////////////////////////////////
+//// 前方ベクトルの取得
+/////////////////////////////////////////
+//D3DXVECTOR3 C3DObj::GetForward()
+//{
+//
+//	return D3DXVECTOR3(m_LocalWorld._31, m_LocalWorld._32, m_LocalWorld._33);
+//
+//}
+//
+/////////////////////////////////////////
+//// 右ベクトルの取得
+/////////////////////////////////////////
+//D3DXVECTOR3 C3DObj::GetRight()
+//{
+//
+//	return D3DXVECTOR3(m_LocalWorld._11, m_LocalWorld._12, m_LocalWorld._13);
+//
+//}
+//
+/////////////////////////////////////////
+//// 上方ベクトルの取得
+/////////////////////////////////////////
+//D3DXVECTOR3 C3DObj::GetUp()
+//{
+//
+//	return D3DXVECTOR3(m_LocalWorld._21, m_LocalWorld._22, m_LocalWorld._23);
+//
+//}
 
 ///////////////////////////////////////
 // 移動量の取得
@@ -229,6 +230,80 @@ bool C3DObj::CollisionSphere(C3DObj* Obj)
 	return D3DXVec3LengthSq(&(vPos1 - vPos2)) < fRadius * fRadius;
 
 }
+
+bool C3DObj::CollisionOBB(C3DObj* Obj)
+{
+
+	D3DXVECTOR3 Localvec[6];
+	D3DXVECTOR3 BoxLength[6];
+	Localvec[0] = GetRight();
+	Localvec[1] = GetUp();
+	Localvec[2] = GetForward();
+	Localvec[3] = Obj->GetRight();
+	Localvec[4] = Obj->GetUp();
+	Localvec[5] = Obj->GetForward();
+
+	D3DXVECTOR3 myBox = GetBox();
+	D3DXVECTOR3 youBox = Obj->GetBox();
+	BoxLength[0] = Localvec[0] * myBox.x;
+	BoxLength[1] = Localvec[1] * myBox.y;
+	BoxLength[2] = Localvec[2] * myBox.z;
+	BoxLength[3] = Localvec[3] * youBox.x;
+	BoxLength[4] = Localvec[4] * youBox.y;
+	BoxLength[5] = Localvec[5] * youBox.z;
+	
+	D3DXVECTOR3 CenterVec = GetCenter() - Obj->GetCenter();
+
+
+	float fLength;
+	D3DXVECTOR3 vSep;
+
+	for (int nCnt = 0; nCnt < 6; nCnt++)
+	{
+		vSep = Localvec[nCnt];
+		fLength = 0.0f;
+		for (int nNum = 0; nNum < 6; nNum++)
+		{
+
+			fLength += fabsf(D3DXVec3Dot(&vSep, &BoxLength[nNum]));
+
+		}
+		if (fabsf(D3DXVec3Dot(&vSep, &CenterVec)))
+		{
+
+			return false;
+
+		}
+
+	}
+
+	for (int nCnt = 0; nCnt < 3; nCnt++)
+	{
+		for (int nNum1 = 3; nNum1 < 6; nNum1++)
+		{
+			D3DXVec3Cross(&vSep, &Localvec[nCnt], &Localvec[nNum1]);
+			D3DXVec3Normalize(&vSep, &vSep);
+			fLength = 0.0f;
+			for (int nNum2 = 0; nNum2 < 6; nNum2++)
+			{
+
+				fLength += fabsf(D3DXVec3Dot(&vSep, &BoxLength[nNum2]));
+
+			}
+
+			if (fabsf(D3DXVec3Dot(&vSep, &CenterVec)))
+			{
+
+				return false;
+
+			}
+		}
+	}
+
+	
+	return true;
+}
+
 
 ///////////////////////////////////////
 // 

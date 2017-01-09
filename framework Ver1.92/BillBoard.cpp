@@ -61,7 +61,7 @@ void CBillBoard::Draw()
 
 	(*CDirectX3D::Create()->GetDevice())->SetFVF(FVF_VERTEX_3D);
 	(*CDirectX3D::Create()->GetDevice())->SetTexture(0, *m_Texture->GetTexture());
-	(*CDirectX3D::Create()->GetDevice())->DrawPrimitiveUP( D3DPT_TRIANGLESTRIP,
+	(*CDirectX3D ::Create()->GetDevice())->DrawPrimitiveUP( D3DPT_TRIANGLESTRIP,
 														2,
 														&m_VertexData[0],
 														sizeof(VERTEX_3D)

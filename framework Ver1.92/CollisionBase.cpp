@@ -1,8 +1,3 @@
-#include "CollisionBase.h"
-
-
-
-CCollisionBase::CCollisionBase()
 #include "CollisionManeger.h"
 
 

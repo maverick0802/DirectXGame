@@ -1,19 +1,20 @@
-#include "OBB.h"
-
-
-
-COBB::COBB()
-{
-}
-
-
-COBB::~COBB()
-{
-}
-
-CGameObject* CCollisionBase::Collision(D3DXVECTOR3 HitPos, ID::OBJECT_ID HitLayer, CCollisionBase* HitObject)
-{
-
-		
-
-}
+//#include "OBB.h"
+//
+//
+//
+//COBB::COBB()
+//{
+//}
+//
+//
+//COBB::~COBB()
+//{
+//}
+//
+//CGameObject* CCollisionBase::Collision(D3DXVECTOR3 HitPos, ID::OBJECT_ID HitLayer, CCollisionBase* HitObject)
+//{
+//
+//	D3DXMATRIX  myworld = m_ReferenceObject->GetWorld();
+//
+//	return NULL;
+//}

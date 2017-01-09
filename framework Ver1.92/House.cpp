@@ -6,6 +6,7 @@ CHouse::CHouse(void)
 {
 
 	m_ThicknessWall = 5.0f;
+	m_Box = D3DXVECTOR3(10, 10, 10);
 	
 }
 

@@ -45,6 +45,15 @@ public:
 	virtual void SendMatrixforChildren(D3DXMATRIX ) = 0;
 	void OnRemove();
 	bool GetRemove();
+	void SetPos(D3DXVECTOR3 pos) { m_LocalWorld._41 = pos.x;  m_LocalWorld._42 = pos.y;  m_LocalWorld._43 = pos.z; };
+	//D3DXVECTOR3 GetLocalPos() { return D3DXVECTOR3(m_LocalWorld._41, m_LocalWorld._42, m_LocalWorld._43); };		
+	D3DXVECTOR3 GetPos() { return D3DXVECTOR3(m_LocalWorld._41, m_LocalWorld._42, m_LocalWorld._43); };
+	D3DXVECTOR3 GetForward() { return D3DXVECTOR3(m_World._31, m_World._32, m_World._33);};
+	D3DXVECTOR3 GetRight() { return D3DXVECTOR3(m_World._11, m_World._12, m_World._13); };
+	D3DXVECTOR3 GetUp() { return D3DXVECTOR3(m_World._21, m_World._22, m_World._23); };
+	D3DXMATRIX  GetWorld() { return m_World; };
+	D3DXMATRIX  GetLocalWorld() { return m_LocalWorld; };
+	void		SetWorld(D3DXMATRIX world) { m_LocalWorld = world; };
 	void SetObjectNumber(int Number);
 	void SetAllObjectNumber(int Number);
 	void OnParent();
