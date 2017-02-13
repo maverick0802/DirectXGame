@@ -57,8 +57,9 @@ public:
 
 	static CDirectX3D* Create(void);
 
-	void Begin();
+	bool Begin();
 	void End();
+	void SwapBuffer();
 
 	LPDIRECT3DDEVICE9* GetDevice();
 	
@@ -68,6 +69,8 @@ private:
 	CApplicationBase*	m_pApplication;
 	bool				m_bWindowMode;
 	static CSmart_ptr<CDirectX3D>	m_pCDirectX3D;
+	D3DPRESENT_PARAMETERS	m_D3dpp;
+
 
 	CDirectX3D(CApplicationBase * pApplication, bool bWindowMode);
 	//CDirectX3D(){};

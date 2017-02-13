@@ -1,6 +1,20 @@
 #include "Camera.h"
 #include "ObjectMediator.h"
 #include "DXInput.h"
+
+
+//*************************************
+// ƒNƒ‰ƒX–¼:
+// ì¬ŽÒ  : ™‰Y@G‹I
+//
+// [ŠT—v]
+// 
+//  ``````````````````
+//  –XV—š—ð–
+//@
+//*************************************
+
+
 CCamera::CCamera()
 {
 }
@@ -34,6 +48,17 @@ void CCamera::Initialize()
 	Setup();
 
 }
+
+//////////////////////////////////
+//
+//@ŠÖ”–¼: Update
+//@ˆø”  : ‚È‚µ
+//@–ß‚è’l: ‚È‚µ
+//@````````````````
+//@ŠT—v
+//@ƒ}ƒEƒX‚ÌˆÚ“®—Ê‚É‡‚í‚¹‚½TPSƒJƒƒ‰
+//@
+//////////////////////////////////
 
 void CCamera::Update()
 {
@@ -132,6 +157,7 @@ void CCamera::Update()
 void CCamera::LateUpdate()
 {
 	C3DObj::LateUpdate();
+	(*CDirectX3D::Create()->GetDevice())->SetTransform(D3DTS_PROJECTION, &m_matProj);
 	(*CDirectX3D::Create()->GetDevice())->SetTransform(D3DTS_VIEW, &m_matView);
 	
 }
@@ -164,7 +190,7 @@ HRESULT CCamera::SetupCamera(){
 	D3DXMatrixLookAtLH(&m_matView, &GetPos(), &m_LookatPt, &m_UpVec);
 	(*CDirectX3D::Create()->GetDevice())->SetTransform(D3DTS_VIEW, &m_matView);
 
-	D3DXMatrixPerspectiveFovLH(&m_matProj, D3DXToRadian(45), (float)CApplicationBase::GetWidth() / CApplicationBase::GetHight(), 1.f, 10000.f);
+	D3DXMatrixPerspectiveFovLH(&m_matProj, D3DXToRadian(45), (float)CApplicationBase::GetWidth() / CApplicationBase::GetHight(), 1.f, 1000.f);
 	(*CDirectX3D::Create()->GetDevice())->SetTransform(D3DTS_PROJECTION, &m_matProj);
 
 	return S_OK;
@@ -172,14 +198,15 @@ HRESULT CCamera::SetupCamera(){
 
 HRESULT CCamera::SetupLight(){
 
-	(*CDirectX3D::Create()->GetDevice()) ->SetRenderState(D3DRS_ZENABLE, TRUE);
+	//(*CDirectX3D::Create()->GetDevice()) ->SetRenderState(D3DRS_ZENABLE, TRUE);
+
 
 	//ƒfƒBƒŒƒNƒVƒ‡ƒiƒ‹ƒ‰ƒCƒg‚ðÝ’è‚·‚éB
 	// RenderiDrawj‚ÅD3DRS_LIGHTING‚ð—LŒø‚É‚µ‚Ä‚¨‚©‚È‚¢‚ÆAˆÓ–¡‚ª‚È‚¢B
 	D3DMATERIAL9 mtrl;
 	ZeroMemory(&mtrl, sizeof(D3DMATERIAL9));
 	mtrl.Diffuse.r = mtrl.Diffuse.g = mtrl.Diffuse.b = mtrl.Diffuse.a = 1.0f;
-	mtrl.Ambient = mtrl.Diffuse;
+	mtrl.Ambient   = mtrl.Diffuse;
 	(*CDirectX3D::Create()->GetDevice())->SetMaterial(&mtrl);
 
 	D3DXVECTOR3 vecDir;
@@ -190,34 +217,20 @@ HRESULT CCamera::SetupLight(){
 	Light.Diffuse.g = 1.f;
 	Light.Diffuse.b = 1.f;
 	Light.Diffuse.a = 1.f;
-	Light.Ambient.r = 0.5f;
-	Light.Ambient.g = 0.5f;
-	Light.Ambient.b = 0.5f;
-	Light.Ambient.a = 0.5f;
-	Light.Specular = Light.Ambient;
-	vecDir = D3DXVECTOR3(0.f, -1.f, 0.f);
+	Light.Ambient.r = 0.2f;
+	Light.Ambient.g = 0.2f;
+	Light.Ambient.b = 0.2f;
+	Light.Ambient.a = 0.2f;
+	Light.Specular = Light.Diffuse;
+	vecDir = D3DXVECTOR3(1.f, -1.f, 1.f);
 	D3DXVec3Normalize((D3DXVECTOR3*)&Light.Direction, &vecDir);
 
-	Light.Range = 1000.f;
+	//Light.Range = 1000.f;
 	(*CDirectX3D::Create()->GetDevice())->SetLight(0, &Light);
 	(*CDirectX3D::Create()->GetDevice())->LightEnable(0, TRUE);
 	(*CDirectX3D::Create()->GetDevice())->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
 
-	// ÅŒã‚ÉŠÂ‹«Œõ‚ðÝ’è‚·‚éB
-	(*CDirectX3D::Create()->GetDevice())->SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_MATERIAL);
-	(*CDirectX3D::Create()->GetDevice())->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_MATERIAL);
-	(*CDirectX3D::Create()->GetDevice())->SetRenderState(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_MATERIAL);
-	(*CDirectX3D::Create()->GetDevice())->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
 
-	(*CDirectX3D::Create()->GetDevice())->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-	(*CDirectX3D::Create()->GetDevice())->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
-	(*CDirectX3D::Create()->GetDevice())->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TEXTURE);
-	(*CDirectX3D::Create()->GetDevice())->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-	(*CDirectX3D::Create()->GetDevice())->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);
-	(*CDirectX3D::Create()->GetDevice())->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
-
-	(*CDirectX3D::Create()->GetDevice())->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
-	(*CDirectX3D::Create()->GetDevice())->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 
 
 	return S_OK;

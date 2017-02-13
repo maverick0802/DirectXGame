@@ -1,7 +1,19 @@
+/////////////////////////////////////
+//
+// インクルード
+//
+/////////////////////////////////////
+
 #pragma once
 #include "DirectX3D.h"
 #include "SceneMediator.h"
 #include<list>
+
+///////////////////////////////////
+//
+// ID定義
+//
+///////////////////////////////////
 namespace ID{
 
 	typedef enum{
@@ -40,6 +52,7 @@ public:
 	virtual void LateUpdate() = 0;
 	virtual void PrevDraw() = 0;
 	virtual void Draw() = 0;
+	virtual void AlphaDraw() = 0;
 	virtual void UnInitialize() = 0;
 	virtual void ResistChild(CGameObject* ) = 0;
 	virtual void SendMatrixforChildren(D3DXMATRIX ) = 0;

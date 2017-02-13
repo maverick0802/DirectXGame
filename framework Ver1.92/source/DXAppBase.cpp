@@ -121,14 +121,17 @@ void CDXAppBase::Loop(void)
 				m_SceneManeger.SwapScene();
 			}
 
-			m_DirectX3D->Begin();		//•`‰æŠJŽn
+			if (m_DirectX3D->Begin())
+			{
 
-			//•`‰æŽÀs	
-			m_SceneManeger.PrevDraw();
-			m_SceneManeger.Draw();
-			m_DirectX3D->End();			//•`‰æI—¹
+				//•`‰æŽÀs	
+				m_SceneManeger.PrevDraw();
+				m_SceneManeger.Draw();
+				m_DirectX3D->End();			//•`‰æI—¹
+			}
 
-
+			
+			m_DirectX3D->SwapBuffer();
 		}
 
 	}

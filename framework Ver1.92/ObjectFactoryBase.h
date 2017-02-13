@@ -23,6 +23,8 @@ public:
 
 	virtual void Draw() = 0;
 
+	virtual void AlphaDraw() = 0;
+
 	virtual void Release() = 0;
 
 };

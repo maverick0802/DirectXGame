@@ -41,25 +41,45 @@ void CPlayer::Initialize()
 		CResourceLoader::Instance()->FindLoader<CMeshLoader>()->Load(m_ModelName,&m_Meshdata);
 		m_Meshdata->SwitchAnimenSet(1);
 		SetPos(D3DXVECTOR3(0, 0, 0));
-}
+	m_OBB.SetWorldMatrix(&m_LocalWorld);
+	m_OBB.SetBox(D3DXVECTOR3(5,10,5));
+	m_OBB.SetCenter(D3DXVECTOR3(0, 10, 0));
+}	
+
+
+
+//////////////////////////////////
+//
+//@ŠÖ”–¼: Update
+//@ˆø”  : ‚È‚µ
+//@–ß‚è’l: ‚È‚µ
+//@````````````````
+//@ŠT—v
+//@ƒvƒŒƒCƒ„[‚ÌˆÚ“®AƒIƒuƒWƒFƒNƒg‚Æ‚Ì‚ ‚½‚è”»’è
+//@
+//
+//
+//////////////////////////////////
 
 void CPlayer::Update()
 {
+	
 	C3DObj::Update();
 
-	D3DXVECTOR3 pos = GetPos();
-	D3DXVECTOR3 rot = D3DXVECTOR3(0, 0, 0);
-	D3DXVECTOR3 Move = D3DXVECTOR3(0, 0, 0);
-	D3DXVECTOR3	vCrossPoint;
-	D3DXVECTOR3 CameraForword;
-	D3DXVECTOR3 PlayerForword = GetForward();
-	D3DXMATRIX  world = GetWorld();
-	D3DXMATRIX  RotMat;
-	float CosA;
-	float Angle = 0;
-	bool bMove = false;
+	//•Ï”éŒ¾
+	D3DXVECTOR3 pos = GetPos();					//À•WˆÊ’u
+	D3DXVECTOR3 rot = D3DXVECTOR3(0, 0, 0);		//‰ñ“]—Ê
+	D3DXVECTOR3 Move = D3DXVECTOR3(0, 0, 0);	//ˆÚ“®—Ê
+	D3DXVECTOR3	vCrossPoint;					//
+	D3DXVECTOR3 CameraForword;					//ƒJƒƒ‰‚Ì‘O•û•ûŒü
+	D3DXVECTOR3 PlayerForword = GetForward();	//ƒvƒŒƒCƒ„[‚Ì‘O•û•ûŒü
+	D3DXMATRIX  world = GetWorld();				//
+	D3DXMATRIX  RotMat;							//‰ñ“]s—ñ
+	float CosA;									//ƒRƒTƒCƒ“‚ÌŠi”[•Ï”
+	float Angle = 0;							//Šp“x
+	bool bMove = false;							//ˆÚ“®‚µ‚½‚©‚Ç‚¤‚©
 
-	pos.y += 10.0f;
+	//pos.y += 10.0f;								
 	
 	//ƒtƒB[ƒ‹ƒh‚Æ‚Ì‚ ‚½‚è”»’è
 	C3DObj* pField = CObjectMediator::Instance()->FindObject<CField>(0);
@@ -67,18 +87,12 @@ void CPlayer::Update()
 		pos.y = vCrossPoint.y;
 	else
 		pos.y = 0.0f;
+
 	//Œš•¨‚Æ‚Ì”»’è
-	D3DXVECTOR3 tmp = pos;
-	tmp.y += 20.0f;
-	vCrossPoint = D3DXVECTOR3(0,0,0);
+	//OBB
 	C3DObj* pHouse = CObjectMediator::Instance()->FindObject<CHouse>(0);
-	if(pHouse->Intersect(tmp, D3DXVECTOR3(tmp.x,tmp.y - 30,tmp.z), false, &vCrossPoint))
-		pos.y = vCrossPoint.y;
-	else
-		pos.y = pos.y;
-	
-	if (CollisionOBB(pHouse))
-		printf("Hit");
+	m_OBB.SetColor(D3DXCOLOR(255, 0, 0, 100));
+	m_OBB.Collision((&((CHouse*)pHouse)->m_OBB));
 
 	//ƒvƒŒƒCƒ„[‚ÌˆÚ“®
 	CCamera* pCamera = CObjectMediator::Instance()->FindObject<CCamera>(0);
@@ -185,6 +199,14 @@ void CPlayer::Draw()
 	(*CDirectX3D::Create()->GetDevice())->SetRenderState(D3DRS_SPECULARENABLE, FALSE);	// ‹¾–Ê”½ŽË‚ð–³Œø
 	C3DObj::Draw();
 	(*CDirectX3D::Create()->GetDevice())->SetRenderState(D3DRS_SPECULARENABLE, TRUE);	// ‹¾–Ê”½ŽË‚ð–³Œø
+}
+
+void CPlayer::AlphaDraw()
+{
+
+
+	m_OBB.Draw();
 
 }
+
 

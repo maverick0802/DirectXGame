@@ -23,6 +23,7 @@ public:
 	virtual void LateUpdate();
 	virtual void PrevDraw();
 	virtual void Draw();
+	virtual void AlphaDraw();
 	virtual void UnInitialize();
 	void Translate(D3DXVECTOR3 trans);
 	void ResistChild(CGameObject*);

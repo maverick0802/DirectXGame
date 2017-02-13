@@ -55,6 +55,13 @@ void C2DObj::Draw()
 
 }
 
+void C2DObj::AlphaDraw()
+{
+
+	
+
+}
+
 void C2DObj::UnInitialize()
 {
 

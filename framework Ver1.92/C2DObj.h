@@ -13,6 +13,7 @@ public:
 	virtual void LateUpdate();
 	virtual void PrevDraw();
 	virtual void Draw();
+	virtual void AlphaDraw();
 	virtual void UnInitialize();
 	virtual void ResistChild(CGameObject*);
 	virtual void SendMatrixforChildren(D3DXMATRIX);
