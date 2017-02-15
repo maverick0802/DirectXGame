@@ -88,11 +88,13 @@ void CPlayer::Update()
 	else
 		pos.y = 0.0f;
 
-	//建物との判定
+	//大外の壁との判定
 	//OBB
-	C3DObj* pHouse = CObjectMediator::Instance()->FindObject<CHouse>(0);
+	C3DObj* pWall = CObjectMediator::Instance()->FindObject<CHouse>(0);
+	COBB* WallOBB = ((CWall*)pWall)->GetOBB();
+
 	m_OBB.SetColor(D3DXCOLOR(255, 0, 0, 100));
-	m_OBB.Collision((&((CHouse*)pHouse)->m_OBB));
+	m_OBB.Collision(&WallOBB[0]);
 
 	//プレイヤーの移動
 	CCamera* pCamera = CObjectMediator::Instance()->FindObject<CCamera>(0);
@@ -209,4 +211,10 @@ void CPlayer::AlphaDraw()
 
 }
 
+COBB CPlayer::GetOBB()
+{
+
+	return m_OBB;
+
+}
 

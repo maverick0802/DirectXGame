@@ -14,7 +14,7 @@ CField::~CField()
 void CField::Initialize()
 {
 	C3DObj::Initialize();
-	SetModelName("Wall.x");
+	SetModelName("Land.x");
 	if (!m_Meshdata)
 		CResourceLoader::Instance()->FindLoader<CMeshLoader>()->Load(m_ModelName, &m_Meshdata);
 	SetPos(D3DXVECTOR3(0, 0, 0));

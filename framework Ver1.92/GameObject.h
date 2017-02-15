@@ -23,7 +23,8 @@ namespace ID{
 		OBJECT_HOUSE  =  4,
 		OBJECT_FIELD  =  8,
 		OBJECT_SKY    = 16,
-		OBJECT_OTHER  = 32
+		OBJECT_WALL   = 32,
+		OBJECT_OTHER   = 64
 
 	}OBJECT_ID;
 

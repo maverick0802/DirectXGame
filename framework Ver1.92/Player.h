@@ -16,5 +16,7 @@ public:
 	void Update();
 	void Draw();
 	void AlphaDraw();
+	COBB GetOBB();
+
 };
 

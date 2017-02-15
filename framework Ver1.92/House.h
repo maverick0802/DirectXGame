@@ -6,7 +6,7 @@ class CHouse :
 {
 
 	D3DXVECTOR3 m_HitBox;
-public: COBB    m_OBB;
+	COBB		m_OBB;
 
 	float		m_ThicknessWall;
 public:

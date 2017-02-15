@@ -126,6 +126,7 @@
     <ClCompile Include="TitleLogo.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Tutorial.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BillBoard.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="TitleLogo.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Tutorial.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

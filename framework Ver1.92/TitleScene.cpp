@@ -17,6 +17,7 @@ void CTitleScene::Initialize()
 	CObjectFactory<CCamera>::Instance()->CreateObject();
 	CObjectFactory<CSky>::Instance()->CreateObject();
 	CObjectFactory<CField>::Instance()->CreateObject();
+	CObjectFactory<CWall>::Instance()->CreateObject();
 	CObjectFactory<CPlayer>::Instance()->CreateObject();
 	CObjectFactory<CItem>::Instance()->CreateObject();
 	CObjectFactory<CGoalLogo>::Instance()->CreateObject();

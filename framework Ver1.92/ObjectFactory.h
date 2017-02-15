@@ -15,6 +15,7 @@
 #include "Result.h"
 #include "TestObject.h"
 #include "House.h"
+#include "Wall.h"
 
 template <typename T>
 
