@@ -83,8 +83,12 @@
   <ItemGroup>
     <ClCompile Include="BillBoard.cpp" />
     <ClCompile Include="C2DObj.cpp" />
+    <ClCompile Include="CollisionBase.cpp" />
+    <ClCompile Include="CollisionManeger.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GoalLogo.cpp" />
     <ClCompile Include="House.cpp" />
+    <ClCompile Include="OBB.cpp" />
     <ClCompile Include="plate.cpp" />
     <ClCompile Include="DXInput.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -95,7 +99,6 @@
     <ClCompile Include="DirectX3D.cpp" />
     <ClCompile Include="GameBase.cpp" />
     <ClCompile Include="GameMain.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="ObjectFactoryBase.cpp" />
@@ -123,12 +126,17 @@
     <ClCompile Include="TitleLogo.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Tutorial.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BillBoard.h" />
     <ClInclude Include="C2DObj.h" />
+    <ClInclude Include="CollisionBase.h" />
+    <ClInclude Include="CollisionManeger.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GoalLogo.h" />
     <ClInclude Include="House.h" />
+    <ClInclude Include="OBB.h" />
     <ClInclude Include="plate.h" />
     <ClInclude Include="DXInput.h" />
     <ClInclude Include="Enemy.h" />
@@ -139,7 +147,6 @@
     <ClInclude Include="DirectX3D.h" />
     <ClInclude Include="GameBase.h" />
     <ClInclude Include="GameMain.h" />
-    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="ObjectFactory.h" />
@@ -170,6 +177,7 @@
     <ClInclude Include="TitleLogo.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Tutorial.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -13,6 +13,7 @@ C3DObj(ID::SCENE_NULL)
 	//D3DXMatrixIdentity(&m_World);
 	m_ObjID = ID::OBJECT_PLAYER;
 	m_Center = D3DXVECTOR3(0, 10, 0);
+	m_Box = D3DXVECTOR3(10, 20, 10);
 }
 
 CPlayer::CPlayer(ID::SCENE_ID SceneID):
@@ -40,25 +41,45 @@ void CPlayer::Initialize()
 		CResourceLoader::Instance()->FindLoader<CMeshLoader>()->Load(m_ModelName,&m_Meshdata);
 		m_Meshdata->SwitchAnimenSet(1);
 		SetPos(D3DXVECTOR3(0, 0, 0));
-}
+	m_OBB.SetWorldMatrix(&m_LocalWorld);
+	m_OBB.SetBox(D3DXVECTOR3(5,10,5));
+	m_OBB.SetCenter(D3DXVECTOR3(0, 10, 0));
+}	
+
+
+
+//////////////////////////////////
+//
+//@ŠÖ”–¼: Update
+//@ˆø”  : ‚È‚µ
+//@–ß‚è’l: ‚È‚µ
+//@````````````````
+//@ŠT—v
+//@ƒvƒŒƒCƒ„[‚ÌˆÚ“®AƒIƒuƒWƒFƒNƒg‚Æ‚Ì‚ ‚½‚è”»’è
+//@
+//
+//
+//////////////////////////////////
 
 void CPlayer::Update()
 {
+	
 	C3DObj::Update();
 
-	D3DXVECTOR3 pos = GetPos();
-	D3DXVECTOR3 rot = D3DXVECTOR3(0, 0, 0);
-	D3DXVECTOR3 Move = D3DXVECTOR3(0, 0, 0);
-	D3DXVECTOR3	vCrossPoint;
-	D3DXVECTOR3 CameraForword;
-	D3DXVECTOR3 PlayerForword = GetForward();
-	D3DXMATRIX  world = GetWorld();
-	D3DXMATRIX  RotMat;
-	float CosA;
-	float Angle = 0;
-	bool bMove = false;
+	//•Ï”éŒ¾
+	D3DXVECTOR3 pos = GetPos();					//À•WˆÊ’u
+	D3DXVECTOR3 rot = D3DXVECTOR3(0, 0, 0);		//‰ñ“]—Ê
+	D3DXVECTOR3 Move = D3DXVECTOR3(0, 0, 0);	//ˆÚ“®—Ê
+	D3DXVECTOR3	vCrossPoint;					//
+	D3DXVECTOR3 CameraForword;					//ƒJƒƒ‰‚Ì‘O•û•ûŒü
+	D3DXVECTOR3 PlayerForword = GetForward();	//ƒvƒŒƒCƒ„[‚Ì‘O•û•ûŒü
+	D3DXMATRIX  world = GetWorld();				//
+	D3DXMATRIX  RotMat;							//‰ñ“]s—ñ
+	float CosA;									//ƒRƒTƒCƒ“‚ÌŠi”[•Ï”
+	float Angle = 0;							//Šp“x
+	bool bMove = false;							//ˆÚ“®‚µ‚½‚©‚Ç‚¤‚©
+	m_PrevLocalWorld = m_LocalWorld;			//‰ß‹ŽÀ•WŠm•Û
 
-	pos.y += 10.0f;
 	
 	//ƒtƒB[ƒ‹ƒh‚Æ‚Ì‚ ‚½‚è”»’è
 	C3DObj* pField = CObjectMediator::Instance()->FindObject<CField>(0);
@@ -66,19 +87,9 @@ void CPlayer::Update()
 		pos.y = vCrossPoint.y;
 	else
 		pos.y = 0.0f;
-	//Œš•¨‚Æ‚Ì”»’è
-	//D3DXVECTOR3 tmp = pos;
-	//tmp.y += 20.0f;
-	//vCrossPoint = D3DXVECTOR3(0,0,0);
-	//C3DObj* pHouse = CObjectMediator::Instance()->FindObject<CHouse>(0);
-	//if(pHouse->Intersect(tmp, D3DXVECTOR3(tmp.x,tmp.y - 30,tmp.z), false, &vCrossPoint))
-	//	pos.y = vCrossPoint.y;
-	//else
-	//	pos.y = pos.y;
 
 	//ƒvƒŒƒCƒ„[‚ÌˆÚ“®
 	CCamera* pCamera = CObjectMediator::Instance()->FindObject<CCamera>(0);
-	C3DObj* pGoal = CObjectMediator::Instance()->FindObject<CGoalLogo>(0);
 
 	CameraForword = pCamera->GetForward();
 	CameraForword = D3DXVECTOR3(CameraForword.x, 0, CameraForword.z);
@@ -171,6 +182,24 @@ void CPlayer::Update()
 
 
 	SetWorld(world);
+
+	//‘åŠO‚Ì•Ç‚Æ‚Ì”»’è
+	//OBB
+	C3DObj* pWall = CObjectMediator::Instance()->FindObject<CWall>(0);
+	COBB* WallOBB = ((CWall*)pWall)->GetOBB();
+
+	m_OBB.SetColor(D3DXCOLOR(255, 0, 0, 100));
+
+	for (int nCnt = 0; nCnt < 4; nCnt++)
+	{
+		if (m_OBB.Collision(&WallOBB[nCnt]))
+		{
+
+			SetPos(D3DXVECTOR3(m_PrevLocalWorld._41, m_PrevLocalWorld._42, m_PrevLocalWorld._43));
+
+		}
+	}
+
 	
 
 	printf("X = %f Y = %f Z = %f\n", pos.x, pos.y, pos.z);
@@ -182,6 +211,20 @@ void CPlayer::Draw()
 	(*CDirectX3D::Create()->GetDevice())->SetRenderState(D3DRS_SPECULARENABLE, FALSE);	// ‹¾–Ê”½ŽË‚ð–³Œø
 	C3DObj::Draw();
 	(*CDirectX3D::Create()->GetDevice())->SetRenderState(D3DRS_SPECULARENABLE, TRUE);	// ‹¾–Ê”½ŽË‚ð–³Œø
+}
+
+void CPlayer::AlphaDraw()
+{
+
+
+	m_OBB.Draw();
+
+}
+
+COBB CPlayer::GetOBB()
+{
+
+	return m_OBB;
 
 }
 

@@ -85,38 +85,6 @@ void CMeshLoader::Load( std::string FileName, CMesh** Recive)
 	
 }
 
-//HRESULT CMeshLoader::CheckMap(std::string FileName, CMesh* Recive)
-//{
-//	if (m_map.find(FileName) != m_map.end())
-//	{
-//		LPD3DXANIMATIONCONTROLLER	Ctrl;
-//		if (m_map[FileName] != NULL)
-//		{
-//			m_map[FileName].CopyAnimeCtrl(Ctrl);
-//			Recive = m_Meshmap[FileName];
-//			Recive.SetAnimeCtrl(Ctrl);
-//		}
-//		else
-//		{
-//
-//			Recive = m_Meshmap[FileName];
-//
-//		}
-//		return S_OK;
-//	}
-//	return E_FAIL;
-//}
-
-//HRESULT CMeshLoader::ResistMap(std::string FileName, CMesh* ResistMesh)
-//{
-//	
-//	if (m_map.find(FileName) != m_map.end())
-//		return E_FAIL;
-//	m_map.insert(std::make_pair(FileName, ResistMesh));
-//	return S_OK;
-//
-//}
-
 HRESULT CMeshLoader::AllocBoneMatrix(LPD3DXMESHCONTAINER pMeshContainerBase, LPD3DXFRAME pFrameRoot)
 {
 

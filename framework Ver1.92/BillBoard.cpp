@@ -37,11 +37,11 @@ void CBillBoard::Update()
 	if(cos > 1 || cos < -1)
 		cos = (int)cos;
 	float Angle = acos(cos);
-	 D3DXVECTOR3 vRightVec = m_VertexData[0].pos - m_VertexData[1].pos;
-	 if(D3DXVec3Dot(&vRightVec, &CameraForward) < 0)
-		 Angle *= -1;
+	D3DXVECTOR3 vRightVec = m_VertexData[0].pos - m_VertexData[1].pos;
+	if(D3DXVec3Dot(&vRightVec, &CameraForward) < 0)
+		Angle *= -1;
 	D3DXMATRIX RotMat;
-	D3DXMatrixRotationAxis(&RotMat,&D3DXVECTOR3(0,1,0),Angle * 0.2f);
+	D3DXMatrixRotationYawPitchRoll(&RotMat,Angle * 0.2f,0,0);
 
 	D3DXVec3TransformCoord( &m_VertexData[0].pos, &(m_VertexData[0].pos - m_Position), &RotMat);
 	D3DXVec3TransformCoord( &m_VertexData[1].pos, &(m_VertexData[1].pos - m_Position), &RotMat);
@@ -61,7 +61,7 @@ void CBillBoard::Draw()
 
 	(*CDirectX3D::Create()->GetDevice())->SetFVF(FVF_VERTEX_3D);
 	(*CDirectX3D::Create()->GetDevice())->SetTexture(0, *m_Texture->GetTexture());
-	(*CDirectX3D::Create()->GetDevice())->DrawPrimitiveUP( D3DPT_TRIANGLESTRIP,
+	(*CDirectX3D ::Create()->GetDevice())->DrawPrimitiveUP( D3DPT_TRIANGLESTRIP,
 														2,
 														&m_VertexData[0],
 														sizeof(VERTEX_3D)
@@ -91,10 +91,10 @@ void CBillBoard::MakeVertex(D3DXVECTOR3 pos, D3DXVECTOR2 size)
 	m_VertexData[2].col =
 	m_VertexData[3].col = D3DCOLOR_RGBA(255, 255, 255, 255);
 
-	m_VertexData[0].tex = D3DXVECTOR2(1.0f, 1.0f);
-	m_VertexData[1].tex = D3DXVECTOR2(0.0f, 1.0f);
-	m_VertexData[2].tex = D3DXVECTOR2(1.0f, 0.0f);
-	m_VertexData[3].tex = D3DXVECTOR2(0.0f, 0.0f);
+	m_VertexData[0].tex = D3DXVECTOR2(0.0f, 0.0f);
+	m_VertexData[1].tex = D3DXVECTOR2(1.0f, 0.0f);
+	m_VertexData[2].tex = D3DXVECTOR2(0.0f, 1.0f);
+	m_VertexData[3].tex = D3DXVECTOR2(1.0f, 1.0f);
 
 }
 

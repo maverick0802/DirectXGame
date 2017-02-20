@@ -167,7 +167,7 @@ void CObjectFactoryManeger::PrevDraw()
 }
 
 ////////////////////////////////
-// •`‰æi‚¹‚Á‚©‚¿‚³‚ñ—pj
+// •`‰æ
 ////////////////////////////////
 void CObjectFactoryManeger::Draw()
 {
@@ -189,6 +189,27 @@ void CObjectFactoryManeger::Draw()
 		}
 
 		Itr_s ++ ;
+
+	}
+
+	 Itr_s = m_ObjectFactoryMap.begin();
+	 Itr_e = m_ObjectFactoryMap.end();
+
+
+	while (Itr_s != Itr_e)
+	{
+		auto Itr_Obj_s = Itr_s->second.begin();
+		auto Itr_Obj_e = Itr_s->second.end();
+
+		while (Itr_Obj_s != Itr_Obj_e)
+		{
+
+			Itr_Obj_s->second->AlphaDraw();
+
+			Itr_Obj_s++;
+		}
+
+		Itr_s++;
 
 	}
 

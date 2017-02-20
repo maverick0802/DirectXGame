@@ -15,22 +15,16 @@ void CTitleScene::Initialize()
 {
 	//CObjectFactory<CCamera>::Instance()->CreateObject();
 	CObjectFactory<CCamera>::Instance()->CreateObject();
-	CObjectFactory<CPlayer>::Instance()->CreateObject();
-	CObjectFactory<CField>::Instance()->CreateObject();
 	CObjectFactory<CSky>::Instance()->CreateObject();
+	CObjectFactory<CField>::Instance()->CreateObject();
+	CObjectFactory<CWall>::Instance()->CreateObject();
+	CObjectFactory<CPlayer>::Instance()->CreateObject();
 	CObjectFactory<CItem>::Instance()->CreateObject();
-	//CObjectFactory<CGoalLogo>::Instance()->CreateObject();
+	CObjectFactory<CGoalLogo>::Instance()->CreateObject();
 
-	//C3DObj* House= CObjectFactory<CHouse>::Instance()->CreateObject();
-	//House->SetModelName("House.x");
-	//House->SetPos(D3DXVECTOR3(0, 0, 0));
-	//House = CObjectFactory<CHouse>::Instance()->CreateObject();
-	//House->SetModelName("House.x");
-	//House->SetPos(D3DXVECTOR3(-100, 1, -100));
-	//House = CObjectFactory<CHouse>::Instance()->CreateObject();
-	//House->SetModelName("House3.x");
-	//House->SetPos(D3DXVECTOR3(200, 1, 200));
-	//CObjectFactory<CPlayer>::Instance()->CreateObject();
+	C3DObj* House= CObjectFactory<CHouse>::Instance()->CreateObject();
+	House->SetModelName("Stone.x");
+	House->SetPos(D3DXVECTOR3(0, 0, 0));
 
 	CSceneBase::Initialize();
 

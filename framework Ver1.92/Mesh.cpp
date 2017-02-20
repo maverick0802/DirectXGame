@@ -147,7 +147,6 @@ void CMesh::RenderMeshContainer(LPD3DXMESHCONTAINER pMeshContainerBase, LPD3DXFR
 				}
 
 			}
-
 			(*CDirectX3D::Create()->GetDevice())->SetMaterial(&pMeshContainer->pMaterials[pBoneCombi[nCnt].AttribId].MatD3D);
 			(*CDirectX3D::Create()->GetDevice())->SetTexture(0,*pMeshContainer->ppTextures[pBoneCombi[nCnt].AttribId]->GetTexture());
 			dwPrevBoneID = pBoneCombi[nCnt].AttribId;

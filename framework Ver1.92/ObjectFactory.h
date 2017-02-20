@@ -15,6 +15,7 @@
 #include "Result.h"
 #include "TestObject.h"
 #include "House.h"
+#include "Wall.h"
 
 template <typename T>
 
@@ -165,6 +166,7 @@ public:
 	void Draw()
 	{
 	
+		//•s“§–¾“®‰æ
 		auto Itr_s = m_ObjectMap.begin();
 		auto Itr_e = m_ObjectMap.end();
 
@@ -177,6 +179,37 @@ public:
 				Itr_s++;
 			
 		}
+	
+	}
+
+	void AlphaDraw()
+	{
+	
+		//•s“§–¾“®‰æ
+		auto Itr_s = m_ObjectMap.begin();
+		auto Itr_e = m_ObjectMap.end();
+
+
+		//”¼“§–¾•`‰æ
+		LPDIRECT3DDEVICE9  pDevice = *CDirectX3D::Create()->GetDevice();
+
+		pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+		pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+		pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+
+		while (Itr_s != Itr_e)
+		{
+			Itr_s->second->AlphaDraw();
+			if (Itr_s->second->GetRemove())
+				Itr_s = m_ObjectMap.erase(Itr_s);
+			else
+				Itr_s++;
+
+		}
+
+		pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+		pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 	
 	}
 

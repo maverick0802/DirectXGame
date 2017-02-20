@@ -13,10 +13,10 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCommandLine, int cmdShow)
 
 {
-	Debug::DebugWindow Debug;
-	Debug.Init();
+	//Debug::DebugWindow Debug;
+	//Debug.Init();
 
-	CApplicationBase::SetDebug();
+	//CApplicationBase::SetDebug();
 	CSmart_ptr<CApplicationBase> sp_Game(new CDXAppBase);
  	sp_Game->Run(hInstance);
 	
