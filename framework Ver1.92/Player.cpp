@@ -78,8 +78,8 @@ void CPlayer::Update()
 	float CosA;									//コサインの格納変数
 	float Angle = 0;							//角度
 	bool bMove = false;							//移動したかどうか
+	m_PrevLocalWorld = m_LocalWorld;			//過去座標確保
 
-	//pos.y += 10.0f;								
 	
 	//フィールドとのあたり判定
 	C3DObj* pField = CObjectMediator::Instance()->FindObject<CField>(0);
@@ -87,14 +87,6 @@ void CPlayer::Update()
 		pos.y = vCrossPoint.y;
 	else
 		pos.y = 0.0f;
-
-	//大外の壁との判定
-	//OBB
-	C3DObj* pWall = CObjectMediator::Instance()->FindObject<CHouse>(0);
-	COBB* WallOBB = ((CWall*)pWall)->GetOBB();
-
-	m_OBB.SetColor(D3DXCOLOR(255, 0, 0, 100));
-	m_OBB.Collision(&WallOBB[0]);
 
 	//プレイヤーの移動
 	CCamera* pCamera = CObjectMediator::Instance()->FindObject<CCamera>(0);
@@ -190,6 +182,24 @@ void CPlayer::Update()
 
 
 	SetWorld(world);
+
+	//大外の壁との判定
+	//OBB
+	C3DObj* pWall = CObjectMediator::Instance()->FindObject<CWall>(0);
+	COBB* WallOBB = ((CWall*)pWall)->GetOBB();
+
+	m_OBB.SetColor(D3DXCOLOR(255, 0, 0, 100));
+
+	for (int nCnt = 0; nCnt < 4; nCnt++)
+	{
+		if (m_OBB.Collision(&WallOBB[nCnt]))
+		{
+
+			SetPos(D3DXVECTOR3(m_PrevLocalWorld._41, m_PrevLocalWorld._42, m_PrevLocalWorld._43));
+
+		}
+	}
+
 	
 
 	printf("X = %f Y = %f Z = %f\n", pos.x, pos.y, pos.z);

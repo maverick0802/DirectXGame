@@ -110,20 +110,25 @@ bool COBB::Collision(CCollisionBase* HitObject)
 
 void COBB::Draw()
 {
+
+	
 	D3DXMATRIX world;
 
 	D3DXMatrixTranslation(&world, m_Center.x, m_Center.y, m_Center.z);
 	world *= *m_pWorld;
 
 	LPDIRECT3DDEVICE9 pDevice = *CDirectX3D::Create()->GetDevice();
+
 	pDevice->SetTransform(D3DTS_WORLD, &world);
 	D3DMATERIAL9 material;
 	ZeroMemory(&material, sizeof(material));
 	material.Diffuse = D3DXCOLOR(m_Color.r / 255, m_Color.g / 255, m_Color.b / 255, m_Color.a / 255);
 	pDevice->SetMaterial(&material);
 	pDevice->SetTexture(0, NULL);
-
 	m_pMesh->DrawSubset(0);
+
+
+	m_Color = DEFAULTCOLOR;
 
 }
 

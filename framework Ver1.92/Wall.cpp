@@ -88,6 +88,6 @@ void CWall::UnInitialize()
 COBB* CWall::GetOBB()
 {
 
-	return m_OBB;
+	return &m_OBB[0];
 
 }

@@ -119,15 +119,17 @@ void CDXAppBase::Loop(void)
 
 				////次のSceneが設定されていたら変更
 				m_SceneManeger.SwapScene();
-			}
 
-			if (m_DirectX3D->Begin())
-			{
+				if (m_DirectX3D->Begin())
+				{
 
-				//描画実行	
-				m_SceneManeger.PrevDraw();
-				m_SceneManeger.Draw();
-				m_DirectX3D->End();			//描画終了
+					//描画実行	
+					m_SceneManeger.PrevDraw();
+					m_SceneManeger.Draw();
+					m_DirectX3D->End();			//描画終了
+				}
+
+
 			}
 
 			

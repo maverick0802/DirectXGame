@@ -14,15 +14,6 @@ CMainScene::~CMainScene()
 void CMainScene::Initialize()
 {
 
-	//CObjectFactory<CCamera>::Instance()->CreateObject();
-	//CObjectFactory<CSky>::Instance()->CreateObject();
-	//CObjectFactory<CField>::Instance()->CreateObject();
-	//CObjectFactory<CPlayer>::Instance()->CreateObject();
-	////CObjectFactory<CEnemy>::Instance()->CreateObject();
-	//CObjectFactory<CItem>::Instance()->CreateObject();
-	//CObjectFactory<CItem>::Instance()->CreateObject();
-	//CObjectFactory<CGoalLogo>::Instance()->CreateObject();
-	//CObjectFactory<CTutorial>::Instance()->CreateObject();
 
 	CSceneBase::Initialize();
 }
